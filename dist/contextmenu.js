@@ -36,7 +36,7 @@
         this.options = $.extend({}, this.defaults, opt);
         this.init();
     }
-    //定义Beautifier的方法
+    //定义Contextmenu的方法
     Contextmenu.prototype = {
         init: function() {
             var obj = this;
