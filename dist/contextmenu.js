@@ -86,28 +86,28 @@
         //绑定菜单点击事件
         bindHead: function (_this,ele,wrapper,menu) {
             $(ele).mousedown(function(e) {
-
-                (_this.options.beforeFunc)(this);//菜单调用前函数
-
-                var mouseX = _this.getMousePoint(e).x; //鼠标相对文档的X坐标
-                var mouseY = _this.getMousePoint(e).y; //鼠标相对文档的Y坐标
-                var wrapperX = $(wrapper).offset().left; //容器相对文档的X坐标
-                var wrapperY = $(wrapper).offset().top; //容器相对文档的Y坐标
-                var MtoW_X = Math.floor(mouseX - wrapperX); //鼠标在容器中的相对位置 X
-                var MtoW_Y = Math.floor(mouseY - wrapperY); //鼠标在容器中的相对位置 Y
-                var W_w = $(wrapper).width(); //容器宽度
-                var W_h = $(wrapper).height(); //容器高度
-                var M_w = $('#'+menu).width(); //菜单宽度
-                var M_h = $('#'+menu).height(); //菜单高度
-                var P_top = 0; //菜单相对容器定位 Y
-                var P_left = 0; //菜单相对容器定位 X
-                var W_scroll_top = $(wrapper).scrollTop(); //容器滚动条的距离 Y 
-                var W_scroll_left = $(wrapper).scrollLeft(); //容器滚动条的距离 X 
-                //计算菜单出现的实际定位坐标，防止菜单被遮挡,这里加减3目的是解决firefox下文档点击的bug,防止鼠标溢出
-                P_top = ( W_h - MtoW_Y >= M_h && W_h - MtoW_Y < W_h ) ? MtoW_Y - 3 : MtoW_Y - M_h + 3; 
-                P_left = ( W_w - MtoW_X >= M_w && W_w - MtoW_X < W_w ) ? MtoW_X - 3: MtoW_X - M_w + 3;
                 //绑定鼠标右击事件
                 if (3 == e.which) {
+                    (_this.options.beforeFunc)(this);//菜单调用前函数
+
+                    var mouseX = _this.getMousePoint(e).x; //鼠标相对文档的X坐标
+                    var mouseY = _this.getMousePoint(e).y; //鼠标相对文档的Y坐标
+                    var wrapperX = $(wrapper).offset().left; //容器相对文档的X坐标
+                    var wrapperY = $(wrapper).offset().top; //容器相对文档的Y坐标
+                    var MtoW_X = Math.floor(mouseX - wrapperX); //鼠标在容器中的相对位置 X
+                    var MtoW_Y = Math.floor(mouseY - wrapperY); //鼠标在容器中的相对位置 Y
+                    var W_w = $(wrapper).width(); //容器宽度
+                    var W_h = $(wrapper).height(); //容器高度
+                    var M_w = $('#'+menu).width(); //菜单宽度
+                    var M_h = $('#'+menu).height(); //菜单高度
+                    var P_top = 0; //菜单相对容器定位 Y
+                    var P_left = 0; //菜单相对容器定位 X
+                    var W_scroll_top = $(wrapper).scrollTop(); //容器滚动条的距离 Y 
+                    var W_scroll_left = $(wrapper).scrollLeft(); //容器滚动条的距离 X 
+                    //计算菜单出现的实际定位坐标，防止菜单被遮挡,这里加减3目的是解决firefox下文档点击的bug,防止鼠标溢出
+                    P_top = ( W_h - MtoW_Y >= M_h && W_h - MtoW_Y < W_h ) ? MtoW_Y - 3 : MtoW_Y - M_h + 3; 
+                    P_left = ( W_w - MtoW_X >= M_w && W_w - MtoW_X < W_w ) ? MtoW_X - 3: MtoW_X - M_w + 3;
+
                     //设置菜单出现的位置
                     $('#'+menu).addClass('contextmenu-visible');
                     $('#'+menu).css({
