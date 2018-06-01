@@ -22,11 +22,11 @@
             wrapper : "body",//菜单所属容器区域，该区域将禁止系统右键菜单
             trigger : "body",
             item : [{
-                    "name":"",
-                    "func":"",
+                    "name":"item",
+                    /*"func":"",
                     "link":null,
-                    "disable":false
-                  }
+                    "disable":false*/
+                    }
             ],
             target : "_blank",
             beforeFunc: function () {
@@ -36,14 +36,16 @@
         this.options = $.extend({}, this.defaults, opt);
         this.init();
     }
-    //定义Contextmenu的方法
+    //定义Beautifier的方法
     Contextmenu.prototype = {
+        //初始化实例
         init: function() {
             var obj = this;
             obj.createMenu(obj);
             obj.prevent(obj.options.wrapper);
             obj.bindHead(obj,obj.options.trigger,obj.options.wrapper,obj.options.name);
         },
+        //创建菜单
         createMenu:function (_this) {
             var menuName = _this.options.name;
             var menuWrapper = $(_this.options.wrapper);
@@ -81,6 +83,7 @@
             menuWrapper.css("position" , "relative");
             menuWrapper.append($html);
         },
+        //绑定菜单点击事件
         bindHead: function (_this,ele,wrapper,menu) {
             $(ele).mousedown(function(e) {
 
@@ -119,6 +122,7 @@
                 }
             });
         },
+        //禁用系统右键菜单
         prevent: function (ele) {
             $(ele).bind("contextmenu", function(){
                 return false;
@@ -159,37 +163,45 @@
             var flog = false; 
             
         },
+        //更新现存的菜单项
         update: function (opts) {
             //console.log(opts);
-            var ele = $('#'+this.options.name).children('ul').children('li').eq(opts.index);
-            var target = this.options.target;
-            var name = opts.name ? $.trim(opts.name) : ele.text();
-            var func = opts.func ? opts.func : ( ele.attr("onclick") ? ele.attr("onclick") : '' );
-            var link = opts.link!== undefined ? opts.link : ( ele.children('.menu-link').attr("href") ? ele.children('.menu-link').attr("href") : null );
-            var disable = opts.disable!== undefined ? opts.disable : ( ele.hasClass('menu-disable') ? true : false );
-            var $html='';
-            if (name=="-") {
-                ele.attr("class","menu-line");
-                ele.removeClass('menu-item');
-                ele.removeClass('menu-disable');
+            var count = $('#'+this.options.name).children('ul').children('li').length;
+            if (opts.index < 0 || opts.index > count -1) {
+                console.log("指定的索引下标不在菜单项中！")
             }else{
-                if(link==null){
-                    if (func!='') {
-                        ele.attr('onclick', func);
-                    }
-                    $html = name;
-                }else{
-                    $html = '<a href="'+link+'" class="menu-link" target="'+target+'">';
-                    $html += name + '</a>';
-                }
-                if (disable) {
-                    ele.addClass('menu-disable');
-                }else{
+                var ele = $('#'+this.options.name).children('ul').children('li').eq(opts.index);
+                var target = this.options.target;
+                var name = opts.name ? $.trim(opts.name) : ele.text();
+                var func = opts.func ? opts.func : ( ele.attr("onclick") ? ele.attr("onclick") : '' );
+                var link = opts.link!== undefined ? opts.link : ( ele.children('.menu-link').attr("href") ? ele.children('.menu-link').attr("href") : null );
+                var disable = opts.disable!== undefined ? opts.disable : ( ele.hasClass('menu-disable') ? true : false );
+                var $html='';
+                if (name=="-") {
+                    ele.attr("class","menu-line");
+                    ele.removeClass('menu-item');
                     ele.removeClass('menu-disable');
-                }
-            } 
-            ele.html($html);
+                }else{
+                    if(link==null){
+                        if (func!='') {
+                            ele.attr('onclick', func);
+                        }
+                        $html = name;
+                    }else{
+                        $html = '<a href="'+link+'" class="menu-link" target="'+target+'">';
+                        $html += name + '</a>';
+                    }
+                    if (disable) {
+                        ele.addClass('menu-disable');
+                    }else{
+                        ele.removeClass('menu-disable');
+                    }
+                } 
+                ele.html($html);
+            }
+            
         },
+        //添加新菜单项
         add:function (opts) {
             var ele = $('#'+this.options.name).children('ul');
             var target = this.options.target;
@@ -223,6 +235,7 @@
             $('#'+this.options.name).children('ul').children('li').eq(index).hide();
         },
         destroy: function () {
+            $(this.options.wrapper).unbind("contextmenu");//启用系统右键菜单
             $('#'+this.options.name).remove();
         }
     }
