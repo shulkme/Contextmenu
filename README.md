@@ -158,9 +158,9 @@ var menu= new Contextmenu({
    `update()` 同样需要参数，而且所有的参数跟 `add()` 的参数基本相同，只有 `index` 参数不同，这里的`index` 参数是指明需要更新的菜单项，必须是现存的菜单项，否则事件不响应，而且除了`index` 参数是必选外，其它参数都有默认值，可以不填，但实际场景中是需要的，不然就没有任何意义。下面是标准的调用示例
 
    ``` javascript
-   //更新菜单下标索引为4的菜单项
+   //更新菜单下标索引为5的菜单项
    menu.update({
-   	index: 4,
+   	index: 5,
    	name:"github",
    	func:"",
    	link:"https://github.com/shulkme/Contextmenu",
