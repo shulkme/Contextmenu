@@ -2,15 +2,17 @@
 
 > 基于jQuery右键菜单插件，支持创建多个菜单，动态 增删改  菜单项，销毁菜单。
 
+![demo preview](https://github.com/shulkme/Contextmenu/blob/master/preview.png)
+
 ## 引用
 1. 首先需要在 `<head>`  引入css样式，可以是包含自定义后的样式文件
 ``` html
-<link rel="stylesheet" href="[Your project path]/dist/contextmenu.css">
+<link rel="stylesheet" href="[Your project path]/contextmenu.css">
 ```
 2. 然后在 `</body>` 前引入JavaScript文件，两者都是必要的
 ``` html
-<script src="[Your project path]/src/jquery.min.js"></script>
-<script src="[Your project path]/dist/contextmenu.js"></script>
+<script src="[Your project path]/jquery.min.js"></script>
+<script src="[Your project path]/contextmenu.js"></script>
 ```
 ## 构建
 1. 页面内需要一个容器，默认是body，该容器内将屏蔽系统默认右键菜单
@@ -47,7 +49,7 @@ var menu= new Contextmenu();
 这里举一个简单的构造示例：
 ```javascript
 var menu= new Contextmenu({
-	name:"menu",
+    name:"menu",
     wrapper:".wrapper",
     trigger: ".item",
     item:[{
